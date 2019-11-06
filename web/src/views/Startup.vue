@@ -40,9 +40,9 @@ export default {
     }
     
     this.items = [
-        { src: this.baseUrl + 'images/start1.jpg' },
-        { src: this.baseUrl + 'images/start2.jpg' },
-        { src: this.baseUrl + 'images/start3.jpg' }
+        { src: this.baseUrl + 'images/start1.png' },
+        { src: this.baseUrl + 'images/start2.png' },
+        { src: this.baseUrl + 'images/start3.png' }
     ];
     console.log(JSON.stringify(this.items));
   },

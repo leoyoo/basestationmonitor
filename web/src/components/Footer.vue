@@ -29,7 +29,7 @@ export default {
       activetitle: '',
       warnsCount: 0,
       navs: [
-        { title: "基站", to: { path: "/stations" }, icon: "station.png", disable_icon: "station_disabled.png", flags: 0, roleFlag: 1 },
+        { title: "油井", to: { path: "/stations" }, icon: "station.png", disable_icon: "station_disabled.png", flags: 0, roleFlag: 1 },
         { title: "报警", to: { path: "/warns" }, icon: "warn.png", disable_icon: "warn_disabled.png", flags: 0, roleFlag: 1 },
         { title: "配置", to: { path: "/config" }, icon: "setting.png", disable_icon: "setting_disabled.png", flags: 0, roleFlag: 1 },
         { title: "我", to: { path: "/me" }, icon: "me.png", disable_icon: "me_disabled.png", flags: 0, roleFlag: 1 }    

@@ -139,22 +139,22 @@ namespace BSM.DataServer
                     //位移1
                     if (datagram.Data.Length > 64)
                     {
-                        sd.Move1 = BitConverter.ToSingle(datagram.Data, 61);
+                        sd.Move1 = BitConverter.ToSingle(datagram.Data, 61)/100;
                     }
                     //位移2
                     if (datagram.Data.Length > 69)
                     {
-                        sd.Move2 = BitConverter.ToSingle(datagram.Data, 66);
+                        sd.Move2 = BitConverter.ToSingle(datagram.Data, 66)/100;
                     }
                     //位移3
                     if (datagram.Data.Length > 74)
                     {
-                        sd.Move3 = BitConverter.ToSingle(datagram.Data, 71);
+                        sd.Move3 = BitConverter.ToSingle(datagram.Data, 71)/100;
                     }
                     //位移4
                     if (datagram.Data.Length > 79)
                     {
-                        sd.Move4 = BitConverter.ToSingle(datagram.Data, 76);
+                        sd.Move4 = BitConverter.ToSingle(datagram.Data, 76)/100;
                     }
 
                     context.Add(sd);

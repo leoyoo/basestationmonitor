@@ -70,7 +70,13 @@ namespace BSM.Api.Controllers
                             Skewing_Avg_X = g.Average(sd => sd.SkewingX.HasValue? sd.SkewingX.Value : 0),
                             Skewing_Avg_Y = g.Average(sd => sd.SkewingY.HasValue? sd.SkewingY.Value : 0),
                             Speed_Avg = g.Average(sd => sd.Speed.HasValue? sd.Speed.Value : 0),
-                            Temperature_Avg = g.Average(sd => sd.Temperature.HasValue? sd.Temperature.Value : 0)
+                            Temperature_Avg = g.Average(sd => sd.Temperature.HasValue? sd.Temperature.Value : 0),
+                            Move1_Avg = g.Average(sd => sd.Move1.HasValue ? sd.Move1.Value : 0),
+                            Move2_Avg = g.Average(sd => sd.Move2.HasValue ? sd.Move2.Value : 0),
+                            Move3_Avg = g.Average(sd => sd.Move3.HasValue ? sd.Move3.Value : 0),
+                            Move4_Avg = g.Average(sd => sd.Move4.HasValue ? sd.Move4.Value : 0)
+
+
                         };
 
             return query.ToList();

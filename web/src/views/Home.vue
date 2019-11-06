@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-5">
-    欢迎使用铁塔检测系统, 请稍等进入基站管理页面...
+    欢迎使用油田检测系统, 请稍等进入油井管理页面...
   </v-container>
 </template>
 

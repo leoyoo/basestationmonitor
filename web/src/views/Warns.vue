@@ -25,7 +25,7 @@
                   <v-text-field
                     v-model="filter.id"
                     hide-details
-                    label="基站ID"
+                    label="油井ID"
                     type="number"
                     maxlength="16"
                   ></v-text-field>
@@ -34,7 +34,7 @@
                   <v-text-field
                     v-model="filter.title"
                     hide-details
-                    label="基站名称"
+                    label="油井名称"
                     type="number"
                     maxlength="16"
                   ></v-text-field>

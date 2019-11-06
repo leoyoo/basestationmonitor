@@ -14,7 +14,7 @@
             <v-list-tile class="filter_toolbar_item">
               <v-list-tile-action>
                 <v-text-field v-model="station.name"
-                  label="基站名称"
+                  label="油井名称"
                 ></v-text-field>
               </v-list-tile-action>
             </v-list-tile>
@@ -23,7 +23,7 @@
             <v-list-tile class="filter_toolbar_item">
               <v-list-tile-action>
                 <v-text-field v-model="station.tag"
-                  label="基站标注"
+                  label="油井标注"
                 ></v-text-field>
               </v-list-tile-action>
             </v-list-tile>
@@ -32,7 +32,7 @@
             <v-list-tile class="filter_toolbar_item">
               <v-list-tile-action>
                 <v-text-field v-model="station.height"
-                  label="基站塔高"
+                  label="油井塔高"
                 ></v-text-field>
               </v-list-tile-action>
             </v-list-tile>
@@ -193,7 +193,7 @@ export default {
   computed: {
     title: {
       get() {
-        return this.isNew? "新增基站" : "编辑基站";        
+        return this.isNew? "新增油井" : "编辑油井";        
       }
     }
   },
@@ -220,7 +220,7 @@ export default {
           this.$emit('save', this.station);
         }).catch(err => {
           this.$utils.hideLoading();
-          this.$utils.toast(`保存基站信息出错: ${err.response.data}`);
+          this.$utils.toast(`保存油井信息出错: ${err.response.data}`);
         });
       } else {
         this.$utils.showLoading();
@@ -230,7 +230,7 @@ export default {
           this.$emit('save', this.station);
         }).catch(err => {
           this.$utils.hideLoading();
-          this.$utils.toast(`保存基站信息出错: ${err.response.data}`);
+          this.$utils.toast(`保存油井信息出错: ${err.response.data}`);
         });
       }      
     },

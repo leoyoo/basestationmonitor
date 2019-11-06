@@ -19,6 +19,10 @@ namespace BSM.Api.model
         public double Skewing_Avg_Y { get; set; }
         public float Speed_Avg { get; set; }
         public float Temperature_Avg { get; set; }
+        public float Move1_Avg { get; set; }
+        public float Move2_Avg { get; set; }
+        public float Move3_Avg { get; set; }
+        public float Move4_Avg { get; set; }
 
         public string Date { get; set; }
 

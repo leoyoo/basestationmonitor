@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <mobile-header title="基站数据">
+    <mobile-header title="油井数据">
       <template slot="left">
         <v-btn icon large v-on:click="goBack()">
           <v-icon medium>keyboard_arrow_left</v-icon>
@@ -111,22 +111,41 @@
                   <v-divider></v-divider>
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title>瞬时风速</v-list-tile-title>
+                      <v-list-tile-title>位移一</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
-                        {{toNumValue(coor.data.speed)}} 米/秒
+                        {{toNumValue(coor.data.move1)}} 毫米
                       </v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
                   <v-divider></v-divider>
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title>环境温度</v-list-tile-title>
+                      <v-list-tile-title>位移二</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
-                        {{toNumValue(coor.data.temperature)}} 度
+                        {{toNumValue(coor.data.move2)}} 毫米
                       </v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
                   <v-divider></v-divider>
+                   <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>位移三</v-list-tile-title>
+                      <v-list-tile-sub-title class="caption">
+                        {{toNumValue(coor.data.move3)}} 毫米
+                      </v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                  <v-divider></v-divider> 
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>位移四</v-list-tile-title>
+                      <v-list-tile-sub-title class="caption">
+                        {{toNumValue(coor.data.move4)}} 毫米
+                      </v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+
                   <!-- <v-list-tile>
                     <v-list-tile-content>
                       <v-list-tile-title>倾角测量仪2 {{coor.data? coor.data.tilt2_Addr : ''}}</v-list-tile-title>
@@ -225,10 +244,18 @@
         </v-layout>
         <v-layout row >
           <v-flex xs6 class="px-2">
-            <v-switch v-model="showDailyChart" label="显示曲线图"></v-switch>
+            <v-switch v-model="showDailyChart" label="曲线"></v-switch>
           </v-flex>
           <v-flex xs6 class="px-2">
             <v-select :items="chartOptions" item-text="text" item-value="value" v-model="selChart" v-if="showDailyChart"></v-select>
+          </v-flex>
+          </v-layout>
+          <v-layout row >
+           <v-flex xs6 class="px-2"> 
+            <v-icon  @click="prevHourChart"  v-if="showDailyChart">arrow_back</v-icon>
+          </v-flex>
+           <v-flex  xs6 class="px-2">
+            <v-icon  @click="nextHourChart"  v-if="showDailyChart">arrow_forward</v-icon>
           </v-flex>
         </v-layout>
 
@@ -259,18 +286,36 @@
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>瞬时风速</v-list-tile-title>
+                  <v-list-tile-title>位移一</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
-                    {{toNumValue(data.speed)}} 米/秒
+                    {{toNumValue(data.move1)}} 毫米
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>环境温度</v-list-tile-title>
+                  <v-list-tile-title>位移二</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
-                    {{toNumValue(data.temperature)}} 度
+                    {{toNumValue(data.move2)}} 毫米
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>位移三</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                    {{toNumValue(data.move3)}} 毫米
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>位移四</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                    {{toNumValue(data.move4)}} 毫米
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -321,6 +366,12 @@
           </div>
           <div v-if="selChart === 4" class="chart-container" style="position: relative; height:350px; width:90vw">
             <canvas id="dailyChart4"></canvas>
+          </div>
+          <div v-if="selChart === 5" class="chart-container" style="position: relative; height:350px; width:90vw">
+            <canvas id="dailyChart5"></canvas>
+          </div>
+          <div v-if="selChart === 6" class="chart-container" style="position: relative; height:350px; width:90vw">
+            <canvas id="dailyChart6"></canvas>
           </div>
         </v-card>
 
@@ -397,6 +448,12 @@
           </div>
           <div v-if="selChart === 4" class="chart-container" style="position: relative; height:350px; width:90vw">
             <canvas id="dataChart4"></canvas>
+          </div>
+          <div v-if="selChart === 5" class="chart-container" style="position: relative; height:350px; width:90vw">
+            <canvas id="dataChart5"></canvas>
+          </div>
+          <div v-if="selChart === 6" class="chart-container" style="position: relative; height:350px; width:90vw">
+            <canvas id="dataChart6"></canvas>
           </div>
         </v-card>
       </v-tab-item>
@@ -488,7 +545,7 @@ import Chart from 'chart.js';
 import api from '../modules/api.js';
 import moment from 'moment';
 import EditStation from '../components/EditStation.vue';
-
+var selHourNum=0;
 export default {
   name: "StationDetail",
   props: ['station'],
@@ -506,11 +563,14 @@ export default {
       chartOptions: [
         { text: '水平倾斜角度', value: 1 },
         { text: '垂直偏移距离', value: 2 },
-        { text: '瞬时风速', value: 3 },
-        { text: '环境温度', value: 4 }
+        { text: '位移一', value: 3 },
+        { text: '位移二', value: 4 },
+        { text: '位移三', value: 5 },
+        { text: '位移四', value: 6 }
       ],
       selChart: 1,
       chartOption: {
+
         responsive: true, 
         hover: { mode: 'nearest', intersect: true },
         showLine: false, 
@@ -518,7 +578,7 @@ export default {
         steppedLine: true,
         scales: {
           xAxes: [{display: true, scaleLabel: {display: true, labelString: '日期' }}], 
-          yAxes: [{display: true, scaleLabel: {display: true, labelString: '倾角(度)'}}]
+          yAxes: [{display: true,scaleLabel: {display: true, labelString: '倾角(度)'}}]
         }
       },
       stationDatas: {
@@ -562,6 +622,7 @@ export default {
       selstartdate: null,
       selenddate: null,
       showAddComment: false
+      
     };
   },
   components: {
@@ -571,7 +632,9 @@ export default {
     selChart: {
       handler() {
         if (this.seltab === 'daily') {
-          this.refreshDailyChartData();
+          let prevCStart=this.seldate+" 00:00:00";
+          let prevCEnd=this.seldate+" 01:59:59";
+          this.refreshDailyChartData(prevCStart,prevCEnd);
         } else if (this.seltab === 'chart') {
           this.refreshChartData();
         }        
@@ -623,6 +686,16 @@ export default {
       get() {
         return this.$utils.getImageUrl('comment_add.png');
       }
+    },
+    left_icon:  {
+       get() {
+        return this.$utils.getImageUrl('left.png');
+      }
+    },
+    right_icon:  {
+       get() {
+        return this.$utils.getImageUrl('right.png');
+      }
     }
   },
   methods: {
@@ -636,7 +709,7 @@ export default {
           params: { displayStationId: this.station.id }
         });
       } else {
-        this.$utils.toast(`这个基站还没有设置地理位置`);
+        this.$utils.toast(`这个油井还没有设置地理位置`);
       }
     },
     refresh() {
@@ -644,7 +717,9 @@ export default {
         this.loadCoordinators();
       } else if (this.seltab === 'daily') {
         if (this.showDailyChart) {
-          this.refreshDailyChartData();
+          let prevCStart=this.seldate+" 00:00:00";
+          let prevCEnd=this.seldate+" 01:59:59";
+          this.refreshDailyChartData(prevCStart,prevCEnd);
         } else {
           this.loadDataByDate();
         }        
@@ -703,7 +778,9 @@ export default {
       if (this.seldate && this.selcoor) {
         this.dailyData = [];
         this.$utils.showLoading();
-        api.getStationDataByDay(this.selcoor.stationId, this.selcoor.seqId, this.seldate)
+        let start=this.seldate+" 00:00:00"; 
+        let end=this.seldate+" 23:59:59";
+        api.getStationDataByDay(this.selcoor.stationId, this.selcoor.seqId, start,end)
         .then(result => {
           this.$utils.hideLoading();
           this.dailyData = result;
@@ -722,7 +799,7 @@ export default {
         this.comments = result
       }).catch(err => {
         this.$utils.hideLoading();
-        this.$utils.toast(`获取基站备注信息出错: ${err.message}`);
+        this.$utils.toast(`获取油井备注信息出错: ${err.message}`);
       })
     },
     tabchange(value) {
@@ -766,9 +843,13 @@ export default {
         case 2:
           label = '距离(毫米)'; step = 100; break;
         case 3:
-          label = '风速(米/秒)'; step = 0.1; break;
+          label = '位移一(毫米)'; step = 1; break;
         case 4:
-          label = '温度(度)'; step = 5; break;
+          label = '位移二(毫米)'; step = 1; break;
+        case 5:
+          label = '位移三(毫米)'; step =1; break;
+        case 6:
+          label = '位移四(毫米)'; step = 1; break;
       }
       this.dataChart = new Chart(cxt, {
         type: 'line',
@@ -797,9 +878,13 @@ export default {
         case 2:
           label = '距离(毫米)'; step = 100; break;
         case 3:
-          label = '风速(米/秒)'; step = 0.1; break;
+          label = '位移一(毫米)'; step = 1; break;
         case 4:
-          label = '温度(度)'; step = 5; break;
+          label = '位移二(毫米)'; step = 1; break;
+        case 5:
+          label = '位移三(毫米)'; step = 1; break;
+        case 6:
+          label = '位移四(毫米)'; step = 1; break;
       }
       this.dailyChart = new Chart(cxt, {
         type: 'line',
@@ -813,7 +898,7 @@ export default {
           steppedLine: true,
           scales: {
             xAxes: [{display: true, scaleLabel: {display: true, labelString: '时间' }}], 
-            yAxes: [{display: true, scaleLabel: {display: true, labelString: label}, ticks:{ min:0 }}]
+            yAxes: [{display: true, scaleLabel: {display: true, labelString: label},ticks:{stepSize:1 }}]
           } 
         }
       });
@@ -866,7 +951,7 @@ export default {
           this.stationDatas = {
           labels: [],
           datasets: [{
-              label: '风速(米/秒)', 
+              label: '位移一(毫米)', 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
               pointBorderWidth: 8,
@@ -879,7 +964,33 @@ export default {
           this.stationDatas = {
           labels: [],
           datasets: [{
-              label: '温度(度)', 
+              label: '位移二(毫米)', 
+              backgroundColor: '#4DD0E1',
+              borderColor: '#4DD0E1',
+              pointBorderWidth: 8,
+              data: [],
+              fill: false
+            }]          
+          };
+          break;
+        case 5: 
+          this.stationDatas = {
+          labels: [],
+          datasets: [{
+              label: '位移三(毫米)', 
+              backgroundColor: '#4DD0E1',
+              borderColor: '#4DD0E1',
+              pointBorderWidth: 8,
+              data: [],
+              fill: false
+            }]          
+          };
+          break;
+        case 6:
+          this.stationDatas = {
+          labels: [],
+          datasets: [{
+              label: '位移四(毫米)', 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
               pointBorderWidth: 8,
@@ -907,10 +1018,14 @@ export default {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.skewing_Avg_X, 0));
                   this.stationDatas.datasets[1].data.push(this.toFixedFloat(r.skewing_Avg_Y, 0));
                 } else if (this.selChart === 3) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.speed_Avg, 2));
+                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move1_Avg, 2));
                 } else if (this.selChart === 4) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.temperature_Avg, 1));
-                }                
+                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move2_Avg, 2));
+                } else if (this.selChart === 5) {
+                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move3_Avg, 2));
+                } else if (this.selChart === 6) {
+                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move4_Avg, 2));
+                }                   
               });
             }
             this.drawChartData();
@@ -919,13 +1034,13 @@ export default {
             this.$utils.toast(`获取数据失败: ${err.message}`);
           })
         } else {
-          this.$utils.toast(`该基站还没有协调器`);
+          this.$utils.toast(`该油井还没有协调器`);
         }
       } else {
         this.$utils.toast(`请先选择开始日期及结束日期`);
       }            
     },
-    refreshDailyChartData() {
+    refreshDailyChartData(cStart,cEnd) {
       this.dailyDatas = null;
       switch(this.selChart) {
         case 1: 
@@ -972,7 +1087,7 @@ export default {
           this.dailyDatas = {
           labels: [],
           datasets: [{
-              label: '风速(米/秒)', 
+              label: '位移一(毫米)', 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
               pointBorderWidth: 8,
@@ -985,7 +1100,33 @@ export default {
           this.dailyDatas = {
           labels: [],
           datasets: [{
-              label: '温度(度)', 
+              label: '位移二(毫米)', 
+              backgroundColor: '#4DD0E1',
+              borderColor: '#4DD0E1',
+              pointBorderWidth: 8,
+              data: [],
+              fill: false
+            }]          
+          };
+          break;
+        case 5:
+          this.dailyDatas = {
+          labels: [],
+          datasets: [{
+              label: '位移三(毫米)', 
+              backgroundColor: '#4DD0E1',
+              borderColor: '#4DD0E1',
+              pointBorderWidth: 8,
+              data: [],
+              fill: false
+            }]          
+          };
+          break;
+        case 6:
+          this.dailyDatas = {
+          labels: [],
+          datasets: [{
+              label: '位移四(毫米)', 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
               pointBorderWidth: 8,
@@ -1000,7 +1141,8 @@ export default {
         if (this.selcoor) {
           this.dailyData = [];
           this.$utils.showLoading();
-          api.getStationDataByDay(this.selcoor.stationId, this.selcoor.seqId, this.seldate)
+          
+          api.getStationDataByDay(this.selcoor.stationId, this.selcoor.seqId, cStart,cEnd)
           .then(result => {
             this.$utils.hideLoading();
             this.dailyData = result;
@@ -1018,10 +1160,14 @@ export default {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.skewingX, 0));
                   this.dailyDatas.datasets[1].data.push(this.toFixedFloat(r.skewingY, 0));
                 } else if (this.selChart === 3) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.speed, 2));
+                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move1, 2));
                 } else if (this.selChart === 4) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.temperature, 1));
-                }                
+                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move2, 2));
+                }  else if (this.selChart === 5) {
+                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move3, 2));
+                } else if (this.selChart === 6) {
+                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move4, 2));
+                }                   
               }
             }
             this.drawDailyChart();
@@ -1030,7 +1176,7 @@ export default {
             this.$utils.toast(`获取历史数据出错: ${err.message}`);
           });
         } else {
-          this.$utils.toast(`该基站还没有协调器`);
+          this.$utils.toast(`该油井还没有协调器`);
         }
       } else {
         this.$utils.toast(`请先选择日期`);
@@ -1039,7 +1185,7 @@ export default {
 
     toNumValue(v) {
       if (v && v != null && v != undefined) {
-        return v.toFixed(3);
+        return v.toFixed(2);
       }
       return '';
     },
@@ -1049,6 +1195,33 @@ export default {
     toTimeFormat(v) {
       let dt = moment(v);
       return dt.format('HH:mm:ss');
+    },
+    prevHourChart(){
+      selHourNum=selHourNum-1;
+      if(selHourNum<0) {
+        this.$utils.toast(`已经是第一页`);
+        selHourNum=0;
+      }else{
+        let startHour=selHourNum*2;
+        let endHour=startHour+1;
+        let prevCStart=this.seldate+" "+startHour+":00:00";
+        let prevCEnd=this.seldate+" "+endHour+":59:59";
+        this.refreshDailyChartData(prevCStart,prevCEnd);
+      }
+  
+    },
+    nextHourChart(){
+      selHourNum=selHourNum+1;
+      if(selHourNum>11) {
+        this.$utils.toast(`已经是最后一页`);
+        selHourNum=11;
+      }else{
+        let startHour=selHourNum*2;
+        let endHour=startHour+1;
+        let prevCStart=this.seldate+" "+startHour+":00:00";
+        let prevCEnd=this.seldate+" "+endHour+":59:59";
+        this.refreshDailyChartData(prevCStart,prevCEnd);
+      }
     }
   },
   beforeMount: function() { 
@@ -1057,7 +1230,8 @@ export default {
   activated: function() {    
     this.seltab = 'basic';
     this.loadCoordinators();    
-  }
+  },
+  
 };
 </script>
 

@@ -106,7 +106,7 @@
                   <v-text-field
                     v-model="filter.id"
                     hide-details
-                    label="基站ID"
+                    label="油井ID"
                     type="number"
                     maxlength="16"
                     clearable
@@ -116,7 +116,7 @@
                   <v-text-field
                     v-model="filter.title"
                     hide-details
-                    label="基站名称"
+                    label="油井名称"
                     clearable
                   ></v-text-field>
                 </v-flex>                
@@ -216,7 +216,7 @@
         >
           <v-list>
             <v-list-tile>
-              <v-list-tile-title @click="onAddNewStationClicked">增加新基站</v-list-tile-title>
+              <v-list-tile-title @click="onAddNewStationClicked">增加新油井</v-list-tile-title>
             </v-list-tile>
             <v-divider></v-divider>
             <v-list-tile>
@@ -234,15 +234,15 @@
         >
           <v-list v-if="!isMovingStation">
             <v-list-tile>
-              <v-list-tile-title @click="onViewStationMenuClicked">查看基站数据</v-list-tile-title>
+              <v-list-tile-title @click="onViewStationMenuClicked">查看油井数据</v-list-tile-title>
             </v-list-tile>
             <v-divider></v-divider>
             <v-list-tile>
-              <v-list-tile-title @click="onEditStationMenuClicked">编辑基站信息</v-list-tile-title>
+              <v-list-tile-title @click="onEditStationMenuClicked">编辑油井信息</v-list-tile-title>
             </v-list-tile>
             <v-divider></v-divider>
             <v-list-tile>
-              <v-list-tile-title @click="onMoveStationMenuClicked">移动基站位置</v-list-tile-title>
+              <v-list-tile-title @click="onMoveStationMenuClicked">移动油井位置</v-list-tile-title>
             </v-list-tile>
             <v-divider></v-divider>
             <v-list-tile>
@@ -428,7 +428,7 @@ export default {
         if (this.curCity) {
           this.city = this.curCity.name;
         }
-        return `基站 - [${this.city}]`;
+        return `油井 - [${this.city}]`;
       }
     },
     city_icon: {
@@ -456,6 +456,7 @@ export default {
         return this.$utils.getImageUrl('search.png');
       }
     }
+   
   },
   methods: {
     //diaplay mode
@@ -577,7 +578,7 @@ export default {
               self.curStation.lat = e.lnglat.lat;
               api.saveStation(self.curStation.id, self.curStation)
               .then(result => {
-                this.$utils.toast(`基站新位置已保存`);
+                this.$utils.toast(`油井新位置已保存`);
               }).catch(err => {
                 this.$utils.toast(`保存位置出错: ${err.message}`);
               });
@@ -648,7 +649,7 @@ export default {
     },    
     onEditStationSave() {
       this.showEditStationDialog = false;
-      this.$utils.toast(`基站信息已保存`);
+      this.$utils.toast(`油井信息已保存`);
       this.loadStations();
     },
     onEditStationCancel() {
@@ -743,7 +744,7 @@ export default {
         })
         .catch(err => {
           this.$utils.hideLoading();          
-          this.$utils.toast(`获取基站列表失败: ${err.message}`);
+          this.$utils.toast(`获取油井列表失败: ${err.message}`);
         });
     },
 

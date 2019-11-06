@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>铁塔测量</title>
+    <title>油田测量</title>
     <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.11&key=7292a679221c51cf812a9552a75f5573"></script> -->
-  </head>
-  <body>
+</head>
+
+<body>
     <noscript>
       <strong>We're sorry but web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script type="text/javascript">
-      Object.defineProperties(window, {
-        $isAndroid: {
-          get: function() {
-            return /CordovaAndroid/i.test(navigator.userAgent);
-          }
-        },
-        $isIOS: {
-          get: function() {
-            return (
-              /CordovaiOS/.test(navigator.userAgent) && !window.MSStream
-            );
-          }
-        }
-      });
-      function createScriptNode(src, async) {
-        var script = document.createElement("script");
-        script.async = async || false;
-        script.src = src;
-        document.body.appendChild(script);
-      }
+        Object.defineProperties(window, {
+            $isAndroid: {
+                get: function() {
+                    return /CordovaAndroid/i.test(navigator.userAgent);
+                }
+            },
+            $isIOS: {
+                get: function() {
+                    return (
+                        /CordovaiOS/.test(navigator.userAgent) && !window.MSStream
+                    );
+                }
+            }
+        });
 
-      if (window.$isAndroid) {
-        console.log("============== Android Mode ==================");
-        createScriptNode("<%= BASE_URL %>cordova.js");
-      } else if (window.$isIOS) {
-        console.log("============== iOS Mode ==================");
-        createScriptNode("<%= BASE_URL %>cordova.js");
-      } else {
-        console.log("============== Browser Mode ==================");
-      }
+        function createScriptNode(src, async) {
+            var script = document.createElement("script");
+            script.async = async || false;
+            script.src = src;
+            document.body.appendChild(script);
+        }
+
+        if (window.$isAndroid) {
+            console.log("============== Android Mode ==================");
+            createScriptNode("<%= BASE_URL %>cordova.js");
+        } else if (window.$isIOS) {
+            console.log("============== iOS Mode ==================");
+            createScriptNode("<%= BASE_URL %>cordova.js");
+        } else {
+            console.log("============== Browser Mode ==================");
+        }
     </script>
-    <script
-      type="text/javascript"
-      src="<%= BASE_URL %>cordova-index.js"
-    ></script>
-  </body>
+    <script type="text/javascript" src="<%= BASE_URL %>cordova-index.js"></script>
+</body>
+
 </html>

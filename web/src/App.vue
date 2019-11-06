@@ -32,7 +32,7 @@ export default {
   name: "App",
   data() {
     return {
-      title: "铁塔测量",
+      title: "油田测量",
       loading: false,
       snackbar: {
         display: false,
