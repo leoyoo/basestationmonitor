@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-5">
-    欢迎使用油田检测系统, 请稍等进入油井管理页面...
+    欢迎使用油田护航者, 请稍等进入油井健康监测数据页面...
   </v-container>
 </template>
 

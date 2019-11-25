@@ -1,6 +1,11 @@
 <template>
   <v-container fluid>
-    <mobile-header title="油井数据">
+    <mobile-h title="油田护航者">
+      <template slot="left">
+       
+      </template>
+    </mobile-h>
+    <mobile-header title="油井实时监测数据">
       <template slot="left">
         <v-btn icon large v-on:click="goBack()">
           <v-icon medium>keyboard_arrow_left</v-icon>
@@ -57,7 +62,7 @@
         </v-badge>
       </v-tab>
 
-      <v-tab href="#daily" class="primary--text">
+      <v-tab href="#daily" class="primary--text"  >
         <!-- <v-icon>list_alt</v-icon> -->
         <v-badge>
           <v-img :src="daily_icon" width="20px" height="20px"></v-img>
@@ -99,7 +104,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
                   <v-divider></v-divider>
-                  <v-list-tile>
+                  <!-- <v-list-tile>
                     <v-list-tile-content>
                       <v-list-tile-title>垂直偏移距离</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
@@ -107,7 +112,7 @@
                         Y轴: {{toNumValue(coor.data.skewingY)}} 毫米 
                       </v-list-tile-sub-title>
                     </v-list-tile-content>
-                  </v-list-tile>
+                  </v-list-tile> -->
                   <v-divider></v-divider>
                   <v-list-tile>
                     <v-list-tile-content>
@@ -243,18 +248,18 @@
           </v-flex>
         </v-layout>
         <v-layout row >
-          <v-flex xs6 class="px-2">
-            <v-switch v-model="showDailyChart" label="曲线"></v-switch>
+          <v-flex xs5 class="px-2">
+            <v-switch v-model="showDailyChart" label="显示曲线"></v-switch>
           </v-flex>
-          <v-flex xs6 class="px-2">
+          <v-flex xs7 class="px-2">
             <v-select :items="chartOptions" item-text="text" item-value="value" v-model="selChart" v-if="showDailyChart"></v-select>
           </v-flex>
           </v-layout>
-          <v-layout row >
-           <v-flex xs6 class="px-2"> 
+           <v-layout row >
+           <v-flex xs10 class="px-2"> 
             <v-icon  @click="prevHourChart"  v-if="showDailyChart">arrow_back</v-icon>
           </v-flex>
-           <v-flex  xs6 class="px-2">
+           <v-flex  xs2 class="px-2">
             <v-icon  @click="nextHourChart"  v-if="showDailyChart">arrow_forward</v-icon>
           </v-flex>
         </v-layout>
@@ -274,7 +279,7 @@
                 </v-list-tile-content>
               </v-list-tile>
               <v-divider></v-divider>
-              <v-list-tile>
+              <!-- <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>垂直偏移距离</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
@@ -282,7 +287,7 @@
                     Y轴: {{toNumValue(data.skewingY)}} 毫米 
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
-              </v-list-tile>
+              </v-list-tile> -->
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
@@ -356,22 +361,22 @@
         <v-card class="pa-2" v-if="showDailyChart">
             <!-- <line-chart :chart-data="stationDatas" :options="chartOption"></line-chart> -->
           <div v-if="selChart === 1" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dailyChart1"></canvas>
+            <canvas id="candailyChart"></canvas>
           </div>
           <div v-if="selChart === 2" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dailyChart2"></canvas>
+            <canvas id="candailyChart"></canvas>
           </div>
           <div v-if="selChart === 3" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dailyChart3"></canvas>
+            <canvas id="candailyChart"></canvas>
           </div>
           <div v-if="selChart === 4" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dailyChart4"></canvas>
+            <canvas id="candailyChart"></canvas>
           </div>
           <div v-if="selChart === 5" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dailyChart5"></canvas>
+            <canvas id="candailyChart"></canvas>
           </div>
           <div v-if="selChart === 6" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dailyChart6"></canvas>
+            <canvas id="candailyChart"></canvas>
           </div>
         </v-card>
 
@@ -438,22 +443,22 @@
         <v-card class="pa-2">
             <!-- <line-chart :chart-data="stationDatas" :options="chartOption"></line-chart> -->
           <div v-if="selChart === 1" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart1"></canvas>
+            <canvas id="dataChart"></canvas>
           </div>
           <div v-if="selChart === 2" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart2"></canvas>
+            <canvas id="dataChart"></canvas>
           </div>
           <div v-if="selChart === 3" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart3"></canvas>
+            <canvas id="dataChart"></canvas>
           </div>
           <div v-if="selChart === 4" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart4"></canvas>
+            <canvas id="dataChart"></canvas>
           </div>
           <div v-if="selChart === 5" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart5"></canvas>
+            <canvas id="dataChart"></canvas>
           </div>
           <div v-if="selChart === 6" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart6"></canvas>
+            <canvas id="dataChart"></canvas>
           </div>
         </v-card>
       </v-tab-item>
@@ -543,9 +548,12 @@
 <script>
 import Chart from 'chart.js';
 import api from '../modules/api.js';
-import moment from 'moment';
+import moment, { min } from 'moment';
 import EditStation from '../components/EditStation.vue';
 var selHourNum=0;
+var minData=0;
+var maxData=1;
+
 export default {
   name: "StationDetail",
   props: ['station'],
@@ -562,7 +570,7 @@ export default {
       dailyChart: null,
       chartOptions: [
         { text: '水平倾斜角度', value: 1 },
-        { text: '垂直偏移距离', value: 2 },
+        // { text: '垂直偏移距离', value: 2 },
         { text: '位移一', value: 3 },
         { text: '位移二', value: 4 },
         { text: '位移三', value: 5 },
@@ -833,8 +841,14 @@ export default {
     onEditStationCancel() {
       this.showEditDialog = false;
     },
+   
     drawChartData() {
-      let cxt = document.getElementById('dataChart'+this.selChart).getContext('2d');
+      // let cxt = document.getElementById('dataChart'+this.selChart).getContext('2d');
+       if(this.dataChart!=null){
+        this.dataChart.destroy();
+      }
+       let cxt = document.getElementById('dataChart').getContext('2d');
+
       let label = '倾角(度)';
       let step = 1;
       switch(this.selChart) {
@@ -857,51 +871,109 @@ export default {
         options: {
           responsive: true, 
           maintainAspectRatio: false,
-          hover: { mode: 'nearest', intersect: true },
+          hover: { mode: 'nearest', intersect: true ,animationDuration: 0},
+          animation: {           // 这部分是数值显示的功能实现
+                onComplete: function () {
+                    var chartInstance = this.chart,
+ 
+                    ctx = chartInstance.ctx;
+                    // 以下属于canvas的属性（font、fillStyle、textAlign...）
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.fillStyle = "black";
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+ 
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+          },
           showLine: true, 
           spanGaps: true, 
           steppedLine: true,
           scales: {
             xAxes: [{display: true, scaleLabel: {display: true, labelString: '日期' }}], 
-            yAxes: [{display: true, scaleLabel: {display: true, labelString: label}, ticks:{ min:0 }}]
+            yAxes: [{display: true, scaleLabel: {display: true, labelString: label}, ticks:{min:Math.round(minData*0.8),max:Math.round(maxData*1.2)}}]
           } 
         }
       });
+      minData=0;
+      maxData=1;
     },
     drawDailyChart() {
-      let cxt = document.getElementById('dailyChart'+this.selChart).getContext('2d');
+      if(this.dailyChart!=null){
+        this.dailyChart.destroy();
+      }
+      
+      let canvas=document.getElementById('candailyChart');
+      let cxt = canvas.getContext('2d');
+     
       let label = '倾角(度)';
       let step = 1;
+      
       switch(this.selChart) {
         case 1: 
           label = '倾角(度)'; step = 1; break;
         case 2:
           label = '距离(毫米)'; step = 100; break;
         case 3:
-          label = '位移一(毫米)'; step = 1; break;
+          label = '位移一(毫米)'; step = 10; break;
         case 4:
-          label = '位移二(毫米)'; step = 1; break;
+          label = '位移二(毫米)'; step = 10; break;
         case 5:
-          label = '位移三(毫米)'; step = 1; break;
+          label = '位移三(毫米)'; step = 10; break;
         case 6:
-          label = '位移四(毫米)'; step = 1; break;
+          label = '位移四(毫米)'; step = 10; break;
       }
+           
       this.dailyChart = new Chart(cxt, {
         type: 'line',
         data: this.dailyDatas,
+       
         options: {
+          
           responsive: true, 
           maintainAspectRatio: false,
-          hover: { mode: 'nearest', intersect: true },
+          hover: { mode: 'nearest', intersect: true ,animationDuration: 0},
+          animation: {           // 这部分是数值显示的功能实现
+                onComplete: function () {
+                    var chartInstance = this.chart,
+ 
+                    ctx = chartInstance.ctx;
+                    // 以下属于canvas的属性（font、fillStyle、textAlign...）
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.fillStyle = "black";
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+            
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                         
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        
+                            
+                        });
+                    });
+                }
+          },
           showLine: true, 
           spanGaps: true, 
           steppedLine: true,
           scales: {
             xAxes: [{display: true, scaleLabel: {display: true, labelString: '时间' }}], 
-            yAxes: [{display: true, scaleLabel: {display: true, labelString: label},ticks:{stepSize:1 }}]
+            yAxes: [{display: true, scaleLabel: {display: true, labelString: label},ticks:{min:Math.round(minData*0.8),max:Math.round(maxData*1.2)}}]
           } 
+          
         }
       });
+      minData=0;
+      maxData=1;
     },
 
     refreshChartData() {
@@ -1004,7 +1076,7 @@ export default {
       if (this.selstartdate && this.selenddate) {
         if (this.coordinators && this.coordinators.length > 0) {
           this.$utils.showLoading();
-
+          let i=0;
           api.getStationAvgDataByDate(this.station.id, this.coordinators[0].seqId, this.selstartdate, this.selenddate)
           .then(result => {
             this.$utils.hideLoading();
@@ -1014,18 +1086,36 @@ export default {
                 if (this.selChart === 1) {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.tilt_Avg_X, 2));
                   this.stationDatas.datasets[1].data.push(this.toFixedFloat(r.tilt_Avg_Y, 2));
+                  if(i===0){minData=r.tilt_Avg_X;maxData=r.tilt_Avg_X;}
+                  if(r.tilt_Avg_X<minData){minData=r.tilt_Avg_X;}  
+                  if(r.tilt_Avg_X>maxData){maxData=r.tilt_Avg_X;}
+                  if(r.tilt_Avg_Y<minData){minData=r.tilt_Avg_Y;}  
+                  if(r.tilt_Avg_Y>maxData){maxData=r.tilt_Avg_Y;}
                 } else if (this.selChart === 2) {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.skewing_Avg_X, 0));
                   this.stationDatas.datasets[1].data.push(this.toFixedFloat(r.skewing_Avg_Y, 0));
                 } else if (this.selChart === 3) {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move1_Avg, 2));
+                  if(i===0){minData=r.move1_Avg;maxData=r.move1_Avg;}
+                  if(r.move1_Avg<minData){minData=r.move1_Avg;}  
+                  if(r.move1_Avg>maxData){maxData=r.move1_Avg;}
                 } else if (this.selChart === 4) {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move2_Avg, 2));
+                  if(i===0){minData=r.move2_Avg;maxData=r.move2_Avg;}
+                  if(r.move2_Avg<minData){minData=r.move2_Avg;}  
+                  if(r.move2_Avg>maxData){maxData=r.move2_Avg;}
                 } else if (this.selChart === 5) {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move3_Avg, 2));
+                  if(i===0){minData=r.move3_Avg;maxData=r.move3_Avg;}
+                  if(r.move3_Avg<minData){minData=r.move3_Avg;}  
+                  if(r.move3_Avg>maxData){maxData=r.move3_Avg;}
                 } else if (this.selChart === 6) {
                   this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move4_Avg, 2));
-                }                   
+                  if(i===0){minData=r.move4_Avg;maxData=r.move4_Avg;}
+                  if(r.move4_Avg<minData){minData=r.move4_Avg;}  
+                  if(r.move4_Avg>maxData){maxData=r.move4_Avg;}
+                }   
+                i++;                
               });
             }
             this.drawChartData();
@@ -1050,14 +1140,14 @@ export default {
               label: '倾角 X轴(度)', 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
+              pointBorderWidth: 4,
               data: [],
               fill: false
             }, {
               label: '倾角 Y轴(度)', 
               backgroundColor: '#CDDC39',
               borderColor: '#CDDC39',
-              pointBorderWidth: 8,
+              pointBorderWidth: 4,
               data: [],
               fill: false
             }]          
@@ -1090,7 +1180,7 @@ export default {
               label: '位移一(毫米)', 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
+              pointBorderWidth: 4,
               data: [],
               fill: false
             }]          
@@ -1150,26 +1240,45 @@ export default {
 
             if (this.dailyData && this.dailyData.length > 0) {
               for (let i = this.dailyData.length-1 ; i >= 0; i--) {
-                let r = this.dailyData[i];
+                let r = this.dailyData[i];            
                 console.info(r);
                 this.dailyDatas.labels.push(this.toTimeFormat(r.receivedAt));
                 if (this.selChart === 1) {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.tilt1X, 2));
                   this.dailyDatas.datasets[1].data.push(this.toFixedFloat(r.tilt1Y, 2));
+                  if(i===this.dailyData.length-1){minData=r.tilt1X;maxData=r.tilt1X;}
+                  if(r.tilt1X<minData){minData=r.tilt1X;}  
+                  if(r.tilt1X>maxData){maxData=r.tilt1X;}
+                  if(r.tilt1Y<minData){minData=r.tilt1Y;}  
+                  if(r.tilt1Y>maxData){maxData=r.tilt1Y;}
                 } else if (this.selChart === 2) {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.skewingX, 0));
                   this.dailyDatas.datasets[1].data.push(this.toFixedFloat(r.skewingY, 0));
                 } else if (this.selChart === 3) {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move1, 2));
+                  if(i===this.dailyData.length-1){minData=r.move1;maxData=r.move1;}
+                  if(r.move1<minData){minData=r.move1;}  
+                  if(r.move1>maxData){maxData=r.move1;}
                 } else if (this.selChart === 4) {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move2, 2));
+                  if(i===this.dailyData.length-1){minData=r.move2;maxData=r.move2;}
+                  if(r.move2<minData){minData=r.move2;}  
+                  if(r.move2>maxData){maxData=r.move2;}
                 }  else if (this.selChart === 5) {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move3, 2));
+                  if(i===this.dailyData.length-1){minData=r.move3;maxData=r.move3;}
+                  if(r.move3<minData){minData=r.move3;}  
+                  if(r.move3>maxData){maxData=r.move3;}
                 } else if (this.selChart === 6) {
                   this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move4, 2));
-                }                   
+                  if(i===this.dailyData.length-1){minData=r.move4;maxData=r.move4;}
+                  if(r.move4<minData){minData=r.move4;}  
+                  if(r.move4>maxData){maxData=r.move4;}
+                }   
+                              
               }
             }
+            
             this.drawDailyChart();
           }).catch(err => {
             this.$utils.hideLoading();

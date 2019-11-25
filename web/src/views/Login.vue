@@ -55,7 +55,7 @@ export default {
   computed: {
     loginimg: {
       get() {
-        return this.$utils.getBaseUrl() + "images/mmexport1547008523796.jpg";
+        return this.$utils.getBaseUrl() + "images/logo.jpg";
       }
     }
   },

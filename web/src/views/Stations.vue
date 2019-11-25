@@ -234,7 +234,7 @@
         >
           <v-list v-if="!isMovingStation">
             <v-list-tile>
-              <v-list-tile-title @click="onViewStationMenuClicked">查看油井数据</v-list-tile-title>
+              <v-list-tile-title @click="onViewStationMenuClicked">查看健康监测数据</v-list-tile-title>
             </v-list-tile>
             <v-divider></v-divider>
             <v-list-tile>
