@@ -1,30 +1,31 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no"><link rel=icon href=favicon.ico><title>铁塔测量</title><link href=assets/css/app.9fdbf4f2.css rel=preload as=style><link href=assets/css/chunk-vendors.b7d38f86.css rel=preload as=style><link href=assets/js/app.0abd3ee2.js rel=preload as=script><link href=assets/js/chunk-vendors.702f4b3c.js rel=preload as=script><link href=assets/css/chunk-vendors.b7d38f86.css rel=stylesheet><link href=assets/css/app.9fdbf4f2.css rel=stylesheet></head><body><noscript><strong>We're sorry but web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script>Object.defineProperties(window, {
-        $isAndroid: {
-          get: function() {
-            return /CordovaAndroid/i.test(navigator.userAgent);
-          }
-        },
-        $isIOS: {
-          get: function() {
-            return (
-              /CordovaiOS/.test(navigator.userAgent) && !window.MSStream
-            );
-          }
-        }
-      });
-      function createScriptNode(src, async) {
-        var script = document.createElement("script");
-        script.async = async || false;
-        script.src = src;
-        document.body.appendChild(script);
-      }
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no"><link rel=icon href=favicon.ico><title>油田测量</title><link href=assets/css/app.2d81dab2.css rel=preload as=style><link href=assets/css/chunk-vendors.b7d38f86.css rel=preload as=style><link href=assets/js/app.e84bc5e6.js rel=preload as=script><link href=assets/js/chunk-vendors.702f4b3c.js rel=preload as=script><link href=assets/css/chunk-vendors.b7d38f86.css rel=stylesheet><link href=assets/css/app.2d81dab2.css rel=stylesheet></head><body><noscript><strong>We're sorry but web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script>Object.defineProperties(window, {
+            $isAndroid: {
+                get: function() {
+                    return /CordovaAndroid/i.test(navigator.userAgent);
+                }
+            },
+            $isIOS: {
+                get: function() {
+                    return (
+                        /CordovaiOS/.test(navigator.userAgent) && !window.MSStream
+                    );
+                }
+            }
+        });
 
-      if (window.$isAndroid) {
-        console.log("============== Android Mode ==================");
-        createScriptNode("cordova.js");
-      } else if (window.$isIOS) {
-        console.log("============== iOS Mode ==================");
-        createScriptNode("cordova.js");
-      } else {
-        console.log("============== Browser Mode ==================");
-      }</script><script src=cordova-index.js></script><script src=assets/js/chunk-vendors.702f4b3c.js></script><script src=assets/js/app.0abd3ee2.js></script></body></html>
+        function createScriptNode(src, async) {
+            var script = document.createElement("script");
+            script.async = async || false;
+            script.src = src;
+            document.body.appendChild(script);
+        }
+
+        if (window.$isAndroid) {
+            console.log("============== Android Mode ==================");
+            createScriptNode("cordova.js");
+        } else if (window.$isIOS) {
+            console.log("============== iOS Mode ==================");
+            createScriptNode("cordova.js");
+        } else {
+            console.log("============== Browser Mode ==================");
+        }</script><script src=cordova-index.js></script><script src=assets/js/chunk-vendors.702f4b3c.js></script><script src=assets/js/app.e84bc5e6.js></script></body></html>

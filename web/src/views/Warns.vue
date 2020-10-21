@@ -7,7 +7,7 @@
         </v-btn>
       </template>
     </mobile-header>
-
+    
     <v-card >
       <v-toolbar id="stations-toolbar" dense>
         <v-text-field id="searchKey" class="ml-2" clearable v-model="searchKey"></v-text-field>      
@@ -74,60 +74,94 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn flat @click="filterCancelClick()">取消</v-btn>
-              <v-btn color="primary" flat @click="filterApplyClick()">应用</v-btn>
+              <v-btn color="primary" flat @click="filterApplyClick()">查询</v-btn>
             </v-card-actions>
           </v-card>
           <v-spacer></v-spacer>
         </v-dialog>        
       </v-toolbar>
-
-      <v-layout row wrap justify-center align-center>
-        <v-flex xs12>
-          <v-layout v-show="this.warns.length === 0" justify-center>
-            <p class="headline mt-5">没有数据</p>
-          </v-layout>
-        </v-flex>
-        <v-flex xs12>
-            <v-list two-line dense>
-              <template v-for="(warn, index) in warns">
-                <v-list-tile                  
-                  :key="warn.id"
-                  avatar
-                  @click.native="showDetail(warn)"
-                  class="stationItem"
-                >
-                  <v-list-tile-avatar>
-                    <v-icon color="red">{{getWarnTypeIcon(warn.type)}}</v-icon>
-                  </v-list-tile-avatar>
+        <v-layout row class="pt-3">
+          <v-flex xs6 class="px-2">
+            <v-menu
+              v-model="datemenu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+            >
+              <template>
+                <v-text-field
+                  v-model="seldate"
+                  label="请选择日期"
+                  prepend-icon="event"
+                  readonly
+                  slot="activator"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="seldate" @input="datechanged"></v-date-picker>
+            </v-menu>
+          </v-flex>
+        </v-layout>
+      <template v-for="(data, index) in WarnData" >
+          <v-card class="my-2"  v-bind:key="index">          
+            <v-list dense class="px-3 py-2">
+              <v-subheader>{{data.receivedAt}}</v-subheader>
+              
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>站点编号</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                  吉林油田001号
                   
-                  <v-list-tile-content>
-                    <v-list-tile-title class="text--primary">
-                      <v-icon class="title_icon">place</v-icon>
-                      {{ warn.stationTitle + ' (' + warn.stationId + ')' }}
-                    </v-list-tile-title>
-                    <v-list-tile-sub-title>
-                      <span class="disable_pn">{{ warn.time }}</span>
-                    </v-list-tile-sub-title>
-                  </v-list-tile-content>
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+             
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>报警类型</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                    {{warns[data.alertType]}} 
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>报警值</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                    {{toNumValue(data.alertValue)}} 毫米
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>报警预设值</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                    {{toNumValue(data.setValue)}} 毫米
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <!-- <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>位移四</v-list-tile-title>
+                  <v-list-tile-sub-title class="caption">
+                    {{toNumValue(data.move4)}} 毫米
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile> -->
+              <v-divider></v-divider>
+            
+            </v-list>          
+          </v-card>
+        </template>
 
-                  <v-list-tile-action>
-                    <v-btn icon ripple>
-                      <v-icon small>navigate_next</v-icon>
-                    </v-btn>
-                  </v-list-tile-action>                  
-                </v-list-tile>
-                <v-divider v-if="index + 1 < warns.length" :key="`divider-${index}`"></v-divider>
-              </template>  
-            </v-list>
-        </v-flex>
-        <v-flex xs12>
-          <v-layout v-show="hasMoreData" justify-center>
-            <v-btn small flat block color="white" v-on:click="showMore()">
-              <v-icon medium color="indigo">expand_more</v-icon>
-            </v-btn>
-          </v-layout>
-        </v-flex>        
-      </v-layout>
           
     </v-card>
   </v-container>
@@ -135,6 +169,7 @@
 
 <script>
 import moment from 'moment';
+import api from '../modules/api.js';
 
 export default {
   name: "Warns",
@@ -142,23 +177,28 @@ export default {
     return {
       searchKey: "",
       filter: {},
-      city: '北京',
-
+      city: '白城',
+      WarnData: [],
       refreshFlag: true,
       refreshInterval: 15,
       pageSize: 30,
-
+      seldate: null,
       filterMenu: false,
       warns: [], 
+       warnTypes: [],
       curWarn: null, 
-      warnTypes: [
-        {id: 1, type: '倾角超标'},
-        {id: 2, type: '超温'},
-        {id: 3, type: '超湿'},
-        {id: 4, type: '烟雾浓度超标'}, 
-        {id: 5, type: '断电报警'},
-      ]
+      datemenu: false
+    
     };
+  },
+  watch: {
+    selChart: {
+      handler() {
+          let prevCStart=this.seldate+" 00:00:00";
+          let prevCEnd=this.seldate+" 01:59:59";
+          this.loadDataByDate(prevCStart,prevCEnd);    
+      }
+    }
   },
   computed: {
     hasMoreData: {
@@ -207,7 +247,7 @@ export default {
     //reload stations
     refresh() {
       console.log("refresh");
-      this.loadWarns();
+      this.loadDataByDate();
       window.scrollTo(0, 0);
     },
     showFirstPage() {
@@ -220,45 +260,68 @@ export default {
     showMore() {
       this.$utils.toast("没有更多");
     },
-
-    //load stations from server
-    loadWarns() {
-      this.$utils.showLoading();
-      this.warns = [];
-      this.$utils.hideLoading();
-      // this.$http
-      //   .get("/api/stations/list")
-      //   .then(result => {
-      //     this.$utils.hideLoading();
-      //     var retData = result.data;
-      //     this.stations = _.orderBy(retData, [], []);
-      //     this.showFirstPage();
-      //   })
-      //   .catch(error => {
-      //     this.$utils.hideLoading();
-      //     var errorMsg = "";
-      //     if (
-      //       error &&
-      //       error.response &&
-      //       error.response.status &&
-      //       error.response.status === 401
-      //     ) {
-      //       errorMsg = "获取站点数据超时";
-      //     } else {
-      //       errorMsg = `获取站点数据时出错: ${error.message}`;
-      //     }
-
-      //     this.$utils.toast(errorMsg);
-      //   });
-
+    datechanged() {
+      this.datemenu = false;
+      console.log(this.seldate);
+      this.loadDataByDate();
+    },
+    toNumValue(v) {
+      if (v && v != null && v != undefined) {
+        return v.toFixed(2);
+      }
+      return '';
+    },
+    
+    loadDataByDate() {
+      if (this.seldate) {
+        this.warnTypes=[];
+        this.warns=[];
+         this.$utils.showLoading();
+         api.loadAlertType()
+         .then(result => {
+            this.$utils.hideLoading();
+            this.WarnTypes = result;
+            console.info(this.WarnTypes[1]);
+           for (let i = 0;i<this.WarnTypes.length-1 ; i++){
+                let r = this.WarnTypes[i];
+               this.warns[i]=r.aName;
+           }
+          }).catch(err => {
+            this.$utils.hideLoading();
+            this.$utils.toast(`获取报警数据出错: ${err.message}`);
+          })
+       
+            this.WarnData = [];
+            this.$utils.showLoading();
+            let start=this.seldate+" 00:00:00"; 
+            let end=this.seldate+" 23:59:59";
+            api.getWarnDataByDay(start,end)
+            .then(result => {
+              this.$utils.hideLoading();
+              this.WarnData = result;
+              console.info(this.WarnData);
+             
+            }).catch(err => {
+              this.$utils.hideLoading();
+              this.$utils.toast(`获取报警数据出错: ${err.message}`);
+            })
+        
+      }
     }
 
+  },
+   beforeMount: function() { 
+    this.seldate = new Date().toISOString().substr(0, 10);  
+      // this.timer=setInterval(() => {
+      //   this.nextHourChart();
+      //   this.$utils.toast(selHourNum);
+      // }, 1000); 
   },
   mounted: function() {
     
   },
   activated: function() {
-    this.loadWarns();
+    this.loadDataByDate();
   },
   deactivated: function() {}
 };

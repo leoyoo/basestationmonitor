@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import api from '../modules/api.js';
 export default {
   props: {
     // navs is a list of { title: 'Hello', to: 'enroll', icon: 'person_add' }    
@@ -28,6 +29,9 @@ export default {
     return {
       activetitle: '',
       warnsCount: 0,
+       //报警
+      warnInfo: [],
+      warnTooltips: false,
       navs: [
         { title: "油井", to: { path: "/stations" }, icon: "station.png", disable_icon: "station_disabled.png", flags: 0, roleFlag: 1 },
         { title: "报警", to: { path: "/warns" }, icon: "warn.png", disable_icon: "warn_disabled.png", flags: 0, roleFlag: 1 },
@@ -38,12 +42,44 @@ export default {
   },
   computed: {    
   },
+  methods:{
+     loadWarnInfo(){
+      this.warnInfo=[];
+       this.seldate = new Date().toISOString().substr(0, 10);
+      this.$utils.showLoading();
+        let start=this.seldate+" 00:00:00"; 
+        let end=this.seldate+" 23:59:59";
+        api.getWarnDataByDay(start,end)
+        .then(result => {
+          this.$utils.hideLoading();
+          this.warnInfo = result;
+          console.info(this.warnInfo);
+        }).catch(err => {
+          this.$utils.hideLoading();
+          this.$utils.toast(`获取报警数据出错: ${err.message}`);
+        })
+    }
+  },
   beforeMount() {
     this.navs.forEach(nav => {
       nav.icon = this.$utils.getBaseUrl() + "images/" + nav.icon;
       nav.disable_icon = this.$utils.getBaseUrl() + "images/" + nav.disable_icon;
+      
     });
     this.activetitle = this.navs[0].title;
+    this.timer=setInterval(() => {
+       this.loadWarnInfo();
+        console.info(this.warnInfo.length);
+        if(this.warnInfo.length>=0){
+         
+          this.warnTooltips=true ;
+          this.navs[1].disable_icon=this.$utils.getBaseUrl() + "images/warnr.png" ;
+          console.info(this.navs);
+        }
+      }, 900000); 
+  },
+  destroyed(){
+        clearInterval(this.timer);
   }
 };
 </script>

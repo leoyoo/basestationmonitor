@@ -116,7 +116,7 @@
                   <v-divider></v-divider>
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title>位移一</v-list-tile-title>
+                      <v-list-tile-title>左侧位移</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
                         {{toNumValue(coor.data.move1)}} 毫米
                       </v-list-tile-sub-title>
@@ -125,7 +125,7 @@
                   <v-divider></v-divider>
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title>位移二</v-list-tile-title>
+                      <v-list-tile-title>左前侧位移</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
                         {{toNumValue(coor.data.move2)}} 毫米
                       </v-list-tile-sub-title>
@@ -134,7 +134,7 @@
                   <v-divider></v-divider>
                    <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title>位移三</v-list-tile-title>
+                      <v-list-tile-title>右前侧位移</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
                         {{toNumValue(coor.data.move3)}} 毫米
                       </v-list-tile-sub-title>
@@ -143,7 +143,7 @@
                   <v-divider></v-divider> 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title>位移四</v-list-tile-title>
+                      <v-list-tile-title>右侧位移</v-list-tile-title>
                       <v-list-tile-sub-title class="caption">
                         {{toNumValue(coor.data.move4)}} 毫米
                       </v-list-tile-sub-title>
@@ -203,10 +203,10 @@
                   查看地图
                   <v-icon right dark>map</v-icon>
                 </v-btn>
-                <v-btn color="#4A87D3" dark @click.native="gotoWarns">
+                <!-- <v-btn color="#4A87D3" dark @click.native="gotoWarns">
                   查看报警记录
                   <v-icon right dark>warning</v-icon>
-                </v-btn>          
+                </v-btn>           -->
               </div>
             </v-flex>
           </v-layout>
@@ -259,6 +259,10 @@
            <v-flex xs10 class="px-2"> 
             <v-icon  @click="prevHourChart"  v-if="showDailyChart">arrow_back</v-icon>
           </v-flex>
+          <v-list-tile-sub-title >
+                        第{{this.selHourNum}} 页，共12页
+                      </v-list-tile-sub-title>
+          
            <v-flex  xs2 class="px-2">
             <v-icon  @click="nextHourChart"  v-if="showDailyChart">arrow_forward</v-icon>
           </v-flex>
@@ -291,36 +295,36 @@
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>位移一</v-list-tile-title>
+                  <v-list-tile-title>左侧位移</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
-                    {{toNumValue(data.move1)}} 毫米
+                    {{toNumValue(data.move11)}} 毫米
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>位移二</v-list-tile-title>
+                  <v-list-tile-title>左前侧位移</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
-                    {{toNumValue(data.move2)}} 毫米
+                    {{toNumValue(data.move12)}} 毫米
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>位移三</v-list-tile-title>
+                  <v-list-tile-title>右前侧位移</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
-                    {{toNumValue(data.move3)}} 毫米
+                    {{toNumValue(data.move13)}} 毫米
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
               <v-divider></v-divider>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>位移四</v-list-tile-title>
+                  <v-list-tile-title>右侧位移</v-list-tile-title>
                   <v-list-tile-sub-title class="caption">
-                    {{toNumValue(data.move4)}} 毫米
+                    {{toNumValue(data.move14)}} 毫米
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -360,22 +364,7 @@
 
         <v-card class="pa-2" v-if="showDailyChart">
             <!-- <line-chart :chart-data="stationDatas" :options="chartOption"></line-chart> -->
-          <div v-if="selChart === 1" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="candailyChart"></canvas>
-          </div>
-          <div v-if="selChart === 2" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="candailyChart"></canvas>
-          </div>
-          <div v-if="selChart === 3" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="candailyChart"></canvas>
-          </div>
-          <div v-if="selChart === 4" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="candailyChart"></canvas>
-          </div>
-          <div v-if="selChart === 5" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="candailyChart"></canvas>
-          </div>
-          <div v-if="selChart === 6" class="chart-container" style="position: relative; height:350px; width:90vw">
+          <div v-if="selChart <6" class="chart-container" style="position: relative; height:350px; width:90vw">
             <canvas id="candailyChart"></canvas>
           </div>
         </v-card>
@@ -442,22 +431,7 @@
 
         <v-card class="pa-2">
             <!-- <line-chart :chart-data="stationDatas" :options="chartOption"></line-chart> -->
-          <div v-if="selChart === 1" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart"></canvas>
-          </div>
-          <div v-if="selChart === 2" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart"></canvas>
-          </div>
-          <div v-if="selChart === 3" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart"></canvas>
-          </div>
-          <div v-if="selChart === 4" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart"></canvas>
-          </div>
-          <div v-if="selChart === 5" class="chart-container" style="position: relative; height:350px; width:90vw">
-            <canvas id="dataChart"></canvas>
-          </div>
-          <div v-if="selChart === 6" class="chart-container" style="position: relative; height:350px; width:90vw">
+          <div v-if="selChart <6" class="chart-container" style="position: relative; height:350px; width:90vw">
             <canvas id="dataChart"></canvas>
           </div>
         </v-card>
@@ -546,11 +520,12 @@
 </template>
 
 <script>
+
 import Chart from 'chart.js';
 import api from '../modules/api.js';
 import moment, { min } from 'moment';
 import EditStation from '../components/EditStation.vue';
-var selHourNum=0;
+//var this.selHourNum=0;
 var minData=0;
 var maxData=1;
 
@@ -562,21 +537,25 @@ export default {
       error: null,
       newComment: null,
       comments: [],
+      asts: [],
       seltab: 'basic',
       showDailyChart: true,
       coordinators: [],
       dailyData: [],
       dataChart: null,
       dailyChart: null,
+      labelList:['倾角X轴(度)','倾角Y轴(度)','左侧位移(毫米)','左前侧位移(毫米)','右前侧位移(毫米)','右侧位移(毫米)'],
+     
       chartOptions: [
-        { text: '水平倾斜角度', value: 1 },
-        // { text: '垂直偏移距离', value: 2 },
-        { text: '位移一', value: 3 },
-        { text: '位移二', value: 4 },
-        { text: '位移三', value: 5 },
-        { text: '位移四', value: 6 }
+        { text: '水平倾角X轴', value: 0 },
+        { text: '水平倾角Y轴', value: 1 },     
+        { text: '左侧位移', value: 2 },
+        { text: '左前侧位移', value: 3 },
+        { text: '右前侧位移', value: 4 },
+        { text: '右侧位移', value: 5 }
       ],
-      selChart: 1,
+      selChart: 0,
+      selHourNum:0,
       chartOption: {
 
         responsive: true, 
@@ -592,13 +571,13 @@ export default {
       stationDatas: {
         labels: [],
         datasets: [{
-            label: '倾角 X轴(度)', 
+            label: '倾角X轴(度)', 
             backgroundColor: '#4DD0E1',
             borderColor: '#4DD0E1',
             data: [],
             fill: false
           }, {
-            label: '倾角 Y轴(度)', 
+            label: '倾角Y轴(度)', 
             backgroundColor: '#CDDC39',
             borderColor: '#CDDC39',
             data: [],
@@ -608,13 +587,13 @@ export default {
       dailyDatas: {
         labels: [],
         datasets: [{
-            label: '倾角 X轴(度)', 
+            label: 'X轴(度)', 
             backgroundColor: '#4DD0E1',
             borderColor: '#4DD0E1',
             data: [],
             fill: false
           }, {
-            label: '倾角 Y轴(度)', 
+            label: 'Y轴(度)', 
             backgroundColor: '#CDDC39',
             borderColor: '#CDDC39',
             data: [],
@@ -810,6 +789,19 @@ export default {
         this.$utils.toast(`获取油井备注信息出错: ${err.message}`);
       })
     },
+    // loadAlertSetting() {
+      // this.asts = [];
+      //  this.$utils.showLoading();
+      // api.loadAlertSetting()
+      // .then(result => {
+      //   this.$utils.hideLoading();
+      //   this.asts = result;
+      //   console.info(this.asts);
+      // }).catch(err => {
+      //   this.$utils.hideLoading();
+      //   this.$utils.toast(`获取报警设置信息出错: ${err.message}`);
+      // })
+    // },
     tabchange(value) {
       console.log(`Tab selected: ${value}`);
       if (this.seltab === 'comments') {
@@ -847,48 +839,54 @@ export default {
        if(this.dataChart!=null){
         this.dataChart.destroy();
       }
-       let cxt = document.getElementById('dataChart').getContext('2d');
-
-      let label = '倾角(度)';
+     
+      let canvas=document.getElementById('dataChart');
+      let cxt = canvas.getContext('2d');
+      let label = this.labelList[this.selChart];
       let step = 1;
-      switch(this.selChart) {
-        case 1: 
-          label = '倾角(度)'; step = 1; break;
-        case 2:
-          label = '距离(毫米)'; step = 100; break;
-        case 3:
-          label = '位移一(毫米)'; step = 1; break;
-        case 4:
-          label = '位移二(毫米)'; step = 1; break;
-        case 5:
-          label = '位移三(毫米)'; step =1; break;
-        case 6:
-          label = '位移四(毫米)'; step = 1; break;
-      }
+     
       this.dataChart = new Chart(cxt, {
         type: 'line',
         data: this.stationDatas,
         options: {
           responsive: true, 
           maintainAspectRatio: false,
+            legend: {
+                display:true,
+                position: 'top', // 显示的位置
+                fullWidth: 'true',     
+                  labels:{ //图例标签配置
+                        boxWidth:10 ,//彩色框的宽度
+                  
+                }        
+            },
+          tooltips: {
+            callbacks: {
+            label: function (tooptipItem) {
+              return tooptipItem.yLabel ;
+            }
+            }
+          },
           hover: { mode: 'nearest', intersect: true ,animationDuration: 0},
           animation: {           // 这部分是数值显示的功能实现
                 onComplete: function () {
                     var chartInstance = this.chart,
  
                     ctx = chartInstance.ctx;
-                    // 以下属于canvas的属性（font、fillStyle、textAlign...）
+                     // 以下属于canvas的属性（font、fillStyle、textAlign...）
                     ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
                     ctx.fillStyle = "black";
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'bottom';
  
                     this.data.datasets.forEach(function (dataset, i) {
+                      if(i==0 ){
                         var meta = chartInstance.controller.getDatasetMeta(i);
                         meta.data.forEach(function (bar, index) {
                             var data = dataset.data[index];
                             ctx.fillText(data, bar._model.x, bar._model.y - 5);
                         });
+                      }
                     });
                 }
           },
@@ -897,13 +895,15 @@ export default {
           steppedLine: true,
           scales: {
             xAxes: [{display: true, scaleLabel: {display: true, labelString: '日期' }}], 
-            yAxes: [{display: true, scaleLabel: {display: true, labelString: label}, ticks:{min:Math.round(minData*0.8),max:Math.round(maxData*1.2)}}]
+            yAxes: [{display: true, scaleLabel: {display: true, labelString: label}, ticks:{min:Math.round(minData),max:Math.round(maxData)}}]
           } 
         }
       });
       minData=0;
       maxData=1;
+      
     },
+   
     drawDailyChart() {
       if(this.dailyChart!=null){
         this.dailyChart.destroy();
@@ -912,25 +912,11 @@ export default {
       let canvas=document.getElementById('candailyChart');
       let cxt = canvas.getContext('2d');
      
-      let label = '倾角(度)';
       let step = 1;
-      
-      switch(this.selChart) {
-        case 1: 
-          label = '倾角(度)'; step = 1; break;
-        case 2:
-          label = '距离(毫米)'; step = 100; break;
-        case 3:
-          label = '位移一(毫米)'; step = 10; break;
-        case 4:
-          label = '位移二(毫米)'; step = 10; break;
-        case 5:
-          label = '位移三(毫米)'; step = 10; break;
-        case 6:
-          label = '位移四(毫米)'; step = 10; break;
-      }
-           
-      this.dailyChart = new Chart(cxt, {
+    
+      let label=this.labelList[this.selChart];
+         
+        this.dailyChart = new Chart(cxt, {
         type: 'line',
         data: this.dailyDatas,
        
@@ -938,141 +924,147 @@ export default {
           
           responsive: true, 
           maintainAspectRatio: false,
+          legend: {
+                display:true,
+                position: 'top', // 显示的位置
+                fullWidth: 'true',     
+                  labels:{ //图例标签配置
+                        boxWidth:10 ,//彩色框的宽度
+                  
+                }        
+            },
+          tooltips: {
+            callbacks: {
+            label: function (tooptipItem) {
+              return tooptipItem.yLabel ;
+            }
+            }
+          },
           hover: { mode: 'nearest', intersect: true ,animationDuration: 0},
           animation: {           // 这部分是数值显示的功能实现
                 onComplete: function () {
                     var chartInstance = this.chart,
  
-                    ctx = chartInstance.ctx;
+                    ctx = chartInstance.ctx;             
                     // 以下属于canvas的属性（font、fillStyle、textAlign...）
                     ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
                     ctx.fillStyle = "black";
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'bottom';
-            
                     this.data.datasets.forEach(function (dataset, i) {
+                      if(i==0 ){
                         var meta = chartInstance.controller.getDatasetMeta(i);
                         meta.data.forEach(function (bar, index) {
-                            var data = dataset.data[index];
-                         
-                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                        
-                            
+                            var data = dataset.data[index];                        
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);  
+                                                     
                         });
+                      }
                     });
+                    
                 }
           },
           showLine: true, 
           spanGaps: true, 
           steppedLine: true,
+          
           scales: {
             xAxes: [{display: true, scaleLabel: {display: true, labelString: '时间' }}], 
-            yAxes: [{display: true, scaleLabel: {display: true, labelString: label},ticks:{min:Math.round(minData*0.8),max:Math.round(maxData*1.2)}}]
+            yAxes: [{display: true, scaleLabel: {display: true, labelString: label},ticks:{min:Math.round(minData-0.5),max:Math.round(maxData+0.5)}}]
           } 
           
         }
       });
       minData=0;
       maxData=1;
+     
     },
 
     refreshChartData() {
       this.stationDatas = null;
-      switch(this.selChart) {
-        case 1: 
+      let displayData=[];
           this.stationDatas = {
           labels: [],
           datasets: [{
-              label: '倾角 X轴(度)', 
+              label: this.labelList[this.selChart],
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
+              pointBorderWidth: 4,
               data: [],
               fill: false
             }, {
-              label: '倾角 Y轴(度)', 
-              backgroundColor: '#CDDC39',
-              borderColor: '#CDDC39',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
+            label: '报警', 
+            backgroundColor: 'red',
+            borderColor: 'red',
+            borderDash: [10,3],
+            radius:"0",
+            borderWidth : 1,//线条的宽度
+            data: [],
+            fill: false
+          }, {
+            label:"",
+            backgroundColor: 'red',
+            borderColor: 'red',
+            borderDash: [10,3],
+            borderWidth : 1,//线条的宽度
+            radius:"0",
+            data: [],
+            fill: false
+          }, {
+            label: '预警', 
+            backgroundColor: '#FF7F24',
+            borderColor: '#FF7F24',
+            borderDash: [10,3],
+            borderWidth : 1,//线条的宽度
+            radius:"0",
+            data: [],
+            fill: false
+          },{
+            label:"",
+            backgroundColor: '#FF7F24',
+            borderColor: '#FF7F24',
+            borderDash: [10,3],
+            borderWidth : 1,//线条的宽度
+            radius:"0",
+            data: [],
+            fill: false
+          }]          
           };
-          break;
-        case 2: 
-          this.stationDatas = {
-          labels: [],
-          datasets: [{
-              label: '距离 X轴(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }, {
-              label: '距离 Y轴(毫米)', 
-              backgroundColor: '#CDDC39',
-              borderColor: '#CDDC39',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 3: 
-          this.stationDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移一(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 4:
-          this.stationDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移二(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 5: 
-          this.stationDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移三(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 6:
-          this.stationDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移四(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-      }
-
+        this.$utils.showLoading();
+      api.loadAlertSetting()
+      .then(result => {
+        this.$utils.hideLoading();
+        this.asts = result;
+        let r = this.asts[0];  
+        let WarnValue=[0,0,0,0];
+        let xAlert=[r.tiltXMax,r.tiltXMin,r.tiltXPreMax,r.tiltXPreMin];
+        let yAlert=[r.tiltYMax,r.tiltYMin,r.tiltYPreMax,r.tiltYPreMin];
+        let move1Alert=[r.move1Max,r.move1Min,r.move1PreMax,r.move1PreMin];
+        let move2Alert=[r.move2Max,r.move2Min,r.move2PreMax,r.move2PreMin];
+        let move3Alert=[r.move3Max,r.move3Min,r.move3PreMax,r.move3PreMin];
+        let move4Alert=[r.move4Max,r.move4Min,r.move4PreMax,r.move4PreMin];
+        switch(this.selChart){
+          case 0:
+            WarnValue=xAlert;
+            break;
+          case 1:
+            WarnValue=yAlert;
+            break;
+          case 2:
+            WarnValue=move1Alert;
+            break;
+          case 3:
+             WarnValue=move2Alert;
+            break;
+          case 4:
+             WarnValue=move3Alert;
+            break;
+          case 5:
+            WarnValue=move4Alert;
+            break;
+            
+        }
+     
       if (this.selstartdate && this.selenddate) {
         if (this.coordinators && this.coordinators.length > 0) {
           this.$utils.showLoading();
@@ -1083,39 +1075,23 @@ export default {
             if (result && result.length > 0) {
               result.forEach(r => {
                 this.stationDatas.labels.push(r.date);
-                if (this.selChart === 1) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.tilt_Avg_X, 2));
-                  this.stationDatas.datasets[1].data.push(this.toFixedFloat(r.tilt_Avg_Y, 2));
-                  if(i===0){minData=r.tilt_Avg_X;maxData=r.tilt_Avg_X;}
-                  if(r.tilt_Avg_X<minData){minData=r.tilt_Avg_X;}  
-                  if(r.tilt_Avg_X>maxData){maxData=r.tilt_Avg_X;}
-                  if(r.tilt_Avg_Y<minData){minData=r.tilt_Avg_Y;}  
-                  if(r.tilt_Avg_Y>maxData){maxData=r.tilt_Avg_Y;}
-                } else if (this.selChart === 2) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.skewing_Avg_X, 0));
-                  this.stationDatas.datasets[1].data.push(this.toFixedFloat(r.skewing_Avg_Y, 0));
-                } else if (this.selChart === 3) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move1_Avg, 2));
-                  if(i===0){minData=r.move1_Avg;maxData=r.move1_Avg;}
-                  if(r.move1_Avg<minData){minData=r.move1_Avg;}  
-                  if(r.move1_Avg>maxData){maxData=r.move1_Avg;}
-                } else if (this.selChart === 4) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move2_Avg, 2));
-                  if(i===0){minData=r.move2_Avg;maxData=r.move2_Avg;}
-                  if(r.move2_Avg<minData){minData=r.move2_Avg;}  
-                  if(r.move2_Avg>maxData){maxData=r.move2_Avg;}
-                } else if (this.selChart === 5) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move3_Avg, 2));
-                  if(i===0){minData=r.move3_Avg;maxData=r.move3_Avg;}
-                  if(r.move3_Avg<minData){minData=r.move3_Avg;}  
-                  if(r.move3_Avg>maxData){maxData=r.move3_Avg;}
-                } else if (this.selChart === 6) {
-                  this.stationDatas.datasets[0].data.push(this.toFixedFloat(r.move4_Avg, 2));
-                  if(i===0){minData=r.move4_Avg;maxData=r.move4_Avg;}
-                  if(r.move4_Avg<minData){minData=r.move4_Avg;}  
-                  if(r.move4_Avg>maxData){maxData=r.move4_Avg;}
-                }   
-                i++;                
+                displayData=[r.tilt_Avg_X,r.tilt_Avg_Y,r.move1_Avg,r.move2_Avg,r.move3_Avg,r.move4_Avg];
+         //       console.info(displayData+"---"+this.selChart);
+                this.stationDatas.datasets[0].data.push(this.toFixedFloat(displayData[this.selChart], 2));
+                  if(i===0){minData=displayData[this.selChart];maxData=displayData[this.selChart];}
+                  if(displayData[this.selChart]<minData){minData=displayData[this.selChart];}  
+                  if(displayData[this.selChart]>maxData){maxData=displayData[this.selChart];}              
+                  for(let j=0;j<4;j++){
+                    this.stationDatas.datasets[j+1].data.push(WarnValue[j]); 
+                   
+                  }
+                  if(minData>WarnValue[1]){
+                    minData=WarnValue[1];
+                  }
+                  if(maxData<WarnValue[0]){
+                    maxData=WarnValue[0];
+                  }  
+               i++;                
               });
             }
             this.drawChartData();
@@ -1128,105 +1104,100 @@ export default {
         }
       } else {
         this.$utils.toast(`请先选择开始日期及结束日期`);
-      }            
+      } 
+       }).catch(err => {
+        this.$utils.hideLoading();
+        this.$utils.toast(`获取报警设置信息出错: ${err.message}`);
+      })           
     },
     refreshDailyChartData(cStart,cEnd) {
       this.dailyDatas = null;
-      switch(this.selChart) {
-        case 1: 
-          this.dailyDatas = {
+      
+      this.dailyDatas = {
           labels: [],
           datasets: [{
-              label: '倾角 X轴(度)', 
+              label: this.labelList[this.selChart], 
               backgroundColor: '#4DD0E1',
               borderColor: '#4DD0E1',
               pointBorderWidth: 4,
               data: [],
               fill: false
             }, {
-              label: '倾角 Y轴(度)', 
-              backgroundColor: '#CDDC39',
-              borderColor: '#CDDC39',
-              pointBorderWidth: 4,
-              data: [],
-              fill: false
-            }]          
+            label: '报警', 
+            backgroundColor: 'red',
+            borderColor: 'red',
+            borderDash: [10,3],
+            radius:"0",
+            borderWidth : 1,//线条的宽度
+            data: [],
+            fill: false
+          }, {
+            label:"",
+            backgroundColor: 'red',
+            borderColor: 'red',
+            borderDash: [10,3],
+            borderWidth : 1,//线条的宽度
+            radius:"0",
+            data: [],
+            fill: false
+          },{
+            label: '预警', 
+            backgroundColor: '#FF7F24',
+            borderColor: '#FF7F24',
+            borderDash: [10,3],
+            borderWidth : 1,//线条的宽度
+            radius:"0",
+            data: [],
+            fill: false
+          },{
+            label:"",
+            backgroundColor: '#FF7F24',
+            borderColor: '#FF7F24',
+            borderDash: [10,3],
+            borderWidth : 1,//线条的宽度
+            radius:"0",
+            data: [],
+            fill: false
+          }]          
           };
-          break;
-        case 2: 
-          this.dailyDatas = {
-          labels: [],
-          datasets: [{
-              label: '距离 X轴(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }, {
-              label: '距离 Y轴(毫米)', 
-              backgroundColor: '#CDDC39',
-              borderColor: '#CDDC39',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 3: 
-          this.dailyDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移一(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 4,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 4:
-          this.dailyDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移二(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 5:
-          this.dailyDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移三(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-        case 6:
-          this.dailyDatas = {
-          labels: [],
-          datasets: [{
-              label: '位移四(毫米)', 
-              backgroundColor: '#4DD0E1',
-              borderColor: '#4DD0E1',
-              pointBorderWidth: 8,
-              data: [],
-              fill: false
-            }]          
-          };
-          break;
-      }
-
+      this.$utils.showLoading();
+      api.loadAlertSetting()
+      .then(result => {
+        this.$utils.hideLoading();
+        this.asts = result;
+        let r = this.asts[0];  
+        let WarnValue=[0,0,0,0];
+        let xAlert=[r.tiltXMax,r.tiltXMin,r.tiltXPreMax,r.tiltXPreMin];
+        let yAlert=[r.tiltYMax,r.tiltYMin,r.tiltYPreMax,r.tiltYPreMin];
+        let move1Alert=[r.move1Max,r.move1Min,r.move1PreMax,r.move1PreMin];
+        let move2Alert=[r.move2Max,r.move2Min,r.move2PreMax,r.move2PreMin];
+        let move3Alert=[r.move3Max,r.move3Min,r.move3PreMax,r.move3PreMin];
+        let move4Alert=[r.move4Max,r.move4Min,r.move4PreMax,r.move4PreMin];
+        switch(this.selChart){
+          case 0:
+            WarnValue=xAlert;
+            break;
+          case 1:
+            WarnValue=yAlert;
+            break;
+          case 2:
+            
+            WarnValue=move1Alert;
+            break;
+          case 3:
+            
+            WarnValue=move2Alert;
+            break;
+          case 4:
+            
+            WarnValue=move3Alert;
+            break;
+          case 5:
+          
+            WarnValue=move4Alert;
+            break;
+        }
+       
       if (this.seldate) {
         if (this.selcoor) {
           this.dailyData = [];
@@ -1236,50 +1207,33 @@ export default {
           .then(result => {
             this.$utils.hideLoading();
             this.dailyData = result;
-            console.info(this.dailyData);
+            
 
             if (this.dailyData && this.dailyData.length > 0) {
               for (let i = this.dailyData.length-1 ; i >= 0; i--) {
                 let r = this.dailyData[i];            
-                console.info(r);
+             //   console.info(r);
                 this.dailyDatas.labels.push(this.toTimeFormat(r.receivedAt));
-                if (this.selChart === 1) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.tilt1X, 2));
-                  this.dailyDatas.datasets[1].data.push(this.toFixedFloat(r.tilt1Y, 2));
-                  if(i===this.dailyData.length-1){minData=r.tilt1X;maxData=r.tilt1X;}
-                  if(r.tilt1X<minData){minData=r.tilt1X;}  
-                  if(r.tilt1X>maxData){maxData=r.tilt1X;}
-                  if(r.tilt1Y<minData){minData=r.tilt1Y;}  
-                  if(r.tilt1Y>maxData){maxData=r.tilt1Y;}
-                } else if (this.selChart === 2) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.skewingX, 0));
-                  this.dailyDatas.datasets[1].data.push(this.toFixedFloat(r.skewingY, 0));
-                } else if (this.selChart === 3) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move1, 2));
-                  if(i===this.dailyData.length-1){minData=r.move1;maxData=r.move1;}
-                  if(r.move1<minData){minData=r.move1;}  
-                  if(r.move1>maxData){maxData=r.move1;}
-                } else if (this.selChart === 4) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move2, 2));
-                  if(i===this.dailyData.length-1){minData=r.move2;maxData=r.move2;}
-                  if(r.move2<minData){minData=r.move2;}  
-                  if(r.move2>maxData){maxData=r.move2;}
-                }  else if (this.selChart === 5) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move3, 2));
-                  if(i===this.dailyData.length-1){minData=r.move3;maxData=r.move3;}
-                  if(r.move3<minData){minData=r.move3;}  
-                  if(r.move3>maxData){maxData=r.move3;}
-                } else if (this.selChart === 6) {
-                  this.dailyDatas.datasets[0].data.push(this.toFixedFloat(r.move4, 2));
-                  if(i===this.dailyData.length-1){minData=r.move4;maxData=r.move4;}
-                  if(r.move4<minData){minData=r.move4;}  
-                  if(r.move4>maxData){maxData=r.move4;}
-                }   
-                              
+                let displayData=[r.tilt1X,r.tilt1Y,r.move1,r.move2,r.move3,r.move4];
+           //     console.info(displayData+"---"+this.selChart);
+                this.dailyDatas.datasets[0].data.push(this.toFixedFloat(displayData[this.selChart], 2));
+                  if(i===this.dailyData.length-1){minData=displayData[this.selChart];maxData=displayData[this.selChart];}
+                  if(displayData[this.selChart]<minData){minData=displayData[this.selChart];}  
+                  if(displayData[this.selChart]>maxData){maxData=displayData[this.selChart];} 
+                  for(let j=0;j<4;j++){
+                    this.dailyDatas.datasets[j+1].data.push(WarnValue[j]); 
+                   
+                  }
+                  if(minData>WarnValue[1]){
+                    minData=WarnValue[1];
+                  }
+                  if(maxData<WarnValue[0]){
+                    maxData=WarnValue[0];
+                  }  
+                }
+                    
               }
-            }
-            
-            this.drawDailyChart();
+              this.drawDailyChart();
           }).catch(err => {
             this.$utils.hideLoading();
             this.$utils.toast(`获取历史数据出错: ${err.message}`);
@@ -1290,6 +1244,10 @@ export default {
       } else {
         this.$utils.toast(`请先选择日期`);
       }
+       }).catch(err => {
+        this.$utils.hideLoading();
+        this.$utils.toast(`获取报警设置信息出错: ${err.message}`);
+      })
     },
 
     toNumValue(v) {
@@ -1306,12 +1264,12 @@ export default {
       return dt.format('HH:mm:ss');
     },
     prevHourChart(){
-      selHourNum=selHourNum-1;
-      if(selHourNum<0) {
+      this.selHourNum=this.selHourNum-1;
+      if(this.selHourNum<0) {
         this.$utils.toast(`已经是第一页`);
-        selHourNum=0;
+        this.selHourNum=0;
       }else{
-        let startHour=selHourNum*2;
+        let startHour=this.selHourNum*2;
         let endHour=startHour+1;
         let prevCStart=this.seldate+" "+startHour+":00:00";
         let prevCEnd=this.seldate+" "+endHour+":59:59";
@@ -1320,12 +1278,12 @@ export default {
   
     },
     nextHourChart(){
-      selHourNum=selHourNum+1;
-      if(selHourNum>11) {
+      this.selHourNum=this.selHourNum+1;
+      if(this.selHourNum>11) {
         this.$utils.toast(`已经是最后一页`);
-        selHourNum=11;
+        this.selHourNum=11;
       }else{
-        let startHour=selHourNum*2;
+        let startHour=this.selHourNum*2;
         let endHour=startHour+1;
         let prevCStart=this.seldate+" "+startHour+":00:00";
         let prevCEnd=this.seldate+" "+endHour+":59:59";
@@ -1334,13 +1292,33 @@ export default {
     }
   },
   beforeMount: function() { 
-    this.seldate = new Date().toISOString().substr(0, 10);   
+    this.seldate = new Date().toISOString().substr(0, 10);  
+    this.selstartdate= new Date(new Date().getTime() - 7*24*60*60*1000).toISOString().substr(0, 10);
+    this.selenddate = new Date().toISOString().substr(0, 10);  
+      // this.timer=setInterval(() => {
+      //   this.nextHourChart();
+      //   this.$utils.toast(this.selHourNum);
+      // }, 1000); 
   },
+  // Mount()  {
+  //   if(this.timer){
+  //     clearInterval(this.timer);
+  //   }else{
+  //     this.timer=setInterval(() => {
+  //       this.nextHourChart();
+  //     }, 15000);
+  //   }
+
+  // },
   activated: function() {    
     this.seltab = 'basic';
-    this.loadCoordinators();    
+     
+    this.loadCoordinators(); 
+    
   },
-  
+  destroyed(){
+    //    clearInterval(this.timer);
+  },
 };
 </script>
 
@@ -1388,6 +1366,6 @@ export default {
   bottom: 70px; /* Place the button at the bottom of the page */
   right: 20px; /* Place the button 30px from the right */
   z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
+  border: none; /* Remove1 borders */
 }
 </style>

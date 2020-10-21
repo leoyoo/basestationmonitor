@@ -127,7 +127,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn flat @click="filterCancelClick()">取消</v-btn>
-              <v-btn color="primary" flat @click="filterApplyClick()">应用</v-btn>
+              <v-btn color="primary" flat @click="filterApplyClick()"></v-btn>查询</v-btn>
             </v-card-actions>
           </v-card>
           <v-spacer></v-spacer>
@@ -193,6 +193,7 @@
             :visible="marker.visible" 
             :draggable="marker.draggable" 
             :vid="index"
+            :icon="marker.png"
             v-bind:key="index"
             :label="marker.label">
           </el-amap-marker>
@@ -310,7 +311,7 @@ export default {
     return {
       displayMode: "map", //map or list
       searchKey: "",
-      city: '北京',
+      city: '白城',
       filter: {},
 
       stations: [], 
@@ -331,7 +332,7 @@ export default {
 
       amapManager,
       mapZoom: 12,
-      mapCenter: [116.397428, 39.90923],
+      mapCenter: [123.7879, 45.90923],
       mapEvents: {
         init: (o) => {
           console.log(`AMap initialized: ${o.getCenter()}`);
@@ -392,7 +393,7 @@ export default {
       },
 
       searchOption: {
-        city: '北京',
+        city: '白城',
         citylimit: true
       },
 
@@ -400,7 +401,7 @@ export default {
       cities: [],
       curProvince: null,
       curCity: null,
-      
+     
       map_touch_start: null, //record the time when user start touch on map      
       map_temp_menu_ready: false, //used for checking whether should show the menu of temp marker 
       map_temp_menu_show: false, //whether show the temp maker menu
@@ -747,7 +748,7 @@ export default {
           this.$utils.toast(`获取油井列表失败: ${err.message}`);
         });
     },
-
+   
     //initialize map
     initMap() {    
       lazyAMapApiLoaderInstance.load().then(() => {
@@ -808,12 +809,12 @@ export default {
       api.getCitiesList().then(result => {
         this.provinces = result;
         this.provinces.forEach(p => {
-          if (p.citycode === '010') {
-            this.curProvince = p;
-            this.changeProvince();
-            this.curCity = p.districtList[0];
-            this.applyCity();
-          }
+          // if (p.citycode === '010') {
+          //   this.curProvince = p;
+          //   this.changeProvince();
+          //   this.curCity = p.districtList[0];
+          //   this.applyCity();
+          // }
         })
       }).catch(err => {
         this.$utils.toast(`获取城市列表出错: ${err.message}`);
@@ -822,6 +823,8 @@ export default {
   },
   beforeMount() {
     this.initCities();
+     
+    
   },
   mounted() {    
     this.initMap();

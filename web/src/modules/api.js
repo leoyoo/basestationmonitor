@@ -79,6 +79,22 @@ export default {
             return response.data;
         });
     },
+    getWarnDataByDay( startdate, enddate) {
+
+         //let start = `${date} 00:00:00`;
+        // let end = `${date} 02:59:59`;
+        return axios.get(
+            `${storage.getServiceUrl()}/api/alerts?start=${startdate}&end=${enddate}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*",
+                },
+                data: {}
+            }).then(response => {
+            return response.data;
+        });
+    },
     getStationAvgDataByDate(stationId, seqId, startdate, enddate) {
         let start = `${startdate} 00:00:00`;
         let end = `${enddate} 23:59:59`;
@@ -136,6 +152,31 @@ export default {
             .then(response => {
                 return response.data;
             });
+    },
+    
+    loadAlertSetting() {
+        return axios.get(`${storage.getServiceUrl()}/api/AlertSetting`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+            },
+            data: {}
+        }).then(response => {
+            return response.data;
+        });
+    },
+    loadAlertType() {
+        return axios.get(`${storage.getServiceUrl()}/api/alerts/AlertTypes`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+            },
+            data: {}
+        }).then(response => {
+            return response.data;
+        });
     },
     loadCoordinators(station) {
         return axios.get(`${storage.getServiceUrl()}/api/stations/${station.id}/coordinators`, {
